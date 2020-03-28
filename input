@@ -5,7 +5,7 @@ int a[10]={86,1470,913,1774,948,1509,1022,1750,130};
 int p=143,seek=0,i,n=9,t[9],j,temp;
 float avg;
 printf("Queue is 86,1470,913,1774,948,1509,1022,1750,130\n");
-printf("Initial position of Head is=145\n");
+printf("Initial position of Head is=143\n");
  for(i=0;i<n;i++)
    t[i]=abs(p-a[i]);
   for(i=0;i<n;i++)
