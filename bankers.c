@@ -27,3 +27,71 @@ int main(){
 			scanf("%d",&max[j]);
 		flag=0;
 	}
+		printf("\nEnter Available resources\t");
+	for(i=0;i<r;i++)
+		scanf("%d",&avail[i]);
+	pthread_create(&t1,NULL,thread1,NULL);
+	pthread_join(t1,NULL);
+	printf("\nSystem is in safe state");
+	printf("\nThe safe seq is -(");
+	for(i=0;i<fl;i++)
+		printf("p%d",seq[i]);
+	printf(")");
+}
+void*thread1(){
+	pthread_mutex_lock(&l);
+	pthread_t t2;
+	printf("\nEnter new request details");
+	printf("\nEner pid\t");
+	scanf("%d",&id);
+	printf("\nEnter request for resources\t");
+	for(i=0;i<r;i++){
+		scanf("%d",&newr);
+		allo[i]+=newr;
+		avail[i]=avail[i]-newr;
+	}
+	for(i=0;i<n;i++){
+		for(j=0;j<r;j++);{
+			need[j]=max[i]-allo[j];
+			if(need[j]<n)
+				need[j]=0;
+		}
+	}
+cnt=0;
+	fl=0;
+	while(cnt!=n){
+		g=0;
+		for(j=0;j<n;j++){
+						if(flag=0){
+				b=0;
+				for(p=0;p<r;p++){
+					if(avail[p]>=need[p])
+						b=b+1;
+					else
+						b=b-1;
+					if(b==r){
+						printf("\np%d is visited");
+						seq[fl++]=j;
+						flag=1;
+						for(k=0;k<r;k++)
+							avail[k]=avail[k]+allo[k];
+						cnt=cnt+1;
+						printf("(");
+						for(k=0;k<r;k++)
+							printf("%3d",avail[k]);
+						printf(")");
+						g=1;
+					}
+				}
+			}
+		}
+		if(g==0){
+			printf("\request not granted-Deadlock occured");
+			printf("\nSysten is in unsafe state");
+			pthread_create(&t2,NULL,thread2,NULL);
+			pthread_join(t2,NULL);
+			pthread_mutex_lock(&ll);
+		}
+	}
+
+}
