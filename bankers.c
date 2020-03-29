@@ -95,3 +95,20 @@ cnt=0;
 	}
 
 }
+void *thread2(){
+	pthread_mutex_lock(&ll);
+	printf("\nProcess\t\tAllocation\t\tMax\t\tNeed\n");
+	for(i=0;i<n;i++){
+		printf("p%d\t",i);
+		for(j=0;j<r;j++)
+			printf("%6d",allo[j]);
+		for(j=0;j<r;j++)
+			printf("%6d",max[j]);
+		for(j=0;j<r;j++)
+			printf("%6d",need[j]);
+		printf("\n");
+		}
+			pthread_mutex_unlock(&ll);
+				pthread_mutex_lock(&l);
+
+}
